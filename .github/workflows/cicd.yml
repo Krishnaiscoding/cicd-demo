@@ -19,11 +19,7 @@ jobs:
             - name: Build Docker Image
               run: docker build -t cicd-demo .
             - name: Run tests
-              run: |
-              docker run -d -p 8080:80 --name test-container cicd-demo
-              sleep 5
-              curl http://localhost:8080
-              docker stop test-container
+              run: docker run -d -p 8080:80 --name test-container cicd-demo && sleep 5 && curl http://localhost:8080 && docker stop test-container && docker rm test-container
     push:
         name: Push Docker Image
         needs: build
